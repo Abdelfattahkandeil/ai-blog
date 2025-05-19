@@ -7,12 +7,21 @@ import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { useEffect } from "react"
 
+// أضف هذا التعريف
+type PageProps = {
+  params: {
+    slug: string;
+  };
+  // إذا كنت تستخدم searchParams، يمكنك إضافتها هنا أيضًا:
+  // searchParams?: { [key: string]: string | string[] | undefined };
+};
+
 // This is a static mapping of blog posts for GitHub Pages
 const blogPosts = {
   "evolution-of-gans": {
     title: "The Evolution of Generative Adversarial Networks: From GAN to StyleGAN-3",
-    date: "May 15, 2023",
-    author: "Dr. Alex Chen",
+    date: "May 19, 2025",
+    author: "Abdelfattah atef",
     category: "GenAI",
     readTime: "8 min read",
     image: "https://images.unsplash.com/photo-1617791160505-6f00504e3519?q=80&w=2000&h=1000&auto=format&fit=crop",
@@ -413,9 +422,9 @@ const blogPosts = {
   },
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
+function BlogPost({ params }: { params: { slug: string } }) {
   const { toast } = useToast()
-  const post = blogPosts[params.slug]
+  const post = blogPosts[params.slug as keyof typeof blogPosts]
 
   useEffect(() => {
     if (!post) {
@@ -629,4 +638,8 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       </footer>
     </div>
   )
+}
+
+export default function Page({ params }: PageProps) {
+  // ... existing code ...
 }
